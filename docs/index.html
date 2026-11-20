@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181d23">
+  <meta name="description" content="Ferry a wolf, a goat, and a cabbage across a moonlit river in a puzzle that runs in Malbolge.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Last Ferry">
+  <meta property="og:description" content="Ferry a wolf, a goat, and a cabbage across a moonlit river in a puzzle that runs in Malbolge.">
+  <meta property="og:url" content="https://eprnn.github.io/yes-astra-can-malbolge/">
+  <meta property="og:image" content="https://eprnn.github.io/yes-astra-can-malbolge/ferry-art.webp">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="A ferry on a moonlit river, with a wolf, goat, and cabbage waiting on the bank.">
+  <link rel="canonical" href="https://eprnn.github.io/yes-astra-can-malbolge/">
+  <title>The Last Ferry</title>
+  <link rel="icon" type="image/png" href="./ferry-icon.png">
+  <link rel="preload" href="./fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <h1>The Last Ferry</h1>
+      <p>A river crossing puzzle in Malbolge</p>
+    </header>
+
+    <div class="spread">
+      <div class="story">
+        <div class="illustration">
+          <img src="./ferry-art.webp" alt="" width="1280" height="640">
+        </div>
+        <p>Take the wolf, goat, and cabbage across one at a time. Left alone together, the wolf eats the goat and the goat eats the cabbage.</p>
+      </div>
+
+      <section class="game" aria-labelledby="crossing">
+        <h2 id="crossing">At the crossing</h2>
+        <div class="banks" id="banks" hidden>
+          <section class="bank" aria-label="Left bank">
+            <h3>Left bank</h3>
+            <ul id="left-bank"></ul>
+          </section>
+          <section class="bank" aria-label="Right bank">
+            <h3>Right bank</h3>
+            <ul id="right-bank"></ul>
+          </section>
+        </div>
+        <p class="score" id="score" hidden>Crossings <strong id="crossing-count">0</strong> <span aria-hidden="true">·</span> Best possible 7</p>
+        <p class="dispatch" role="status">
+          <span id="dispatch">Loading the ferry…</span>
+          <span class="visually-hidden" id="bank-announcement"></span>
+        </p>
+        <noscript><p>Turn on JavaScript to play.</p></noscript>
+
+        <fieldset class="crossings">
+          <legend>Take across</legend>
+          <div class="command-grid">
+            <button type="button" data-command="g" aria-keyshortcuts="G" aria-disabled="true">Goat <kbd aria-hidden="true">G</kbd></button>
+            <button type="button" data-command="w" aria-keyshortcuts="W" aria-disabled="true">Wolf <kbd aria-hidden="true">W</kbd></button>
+            <button type="button" data-command="c" aria-keyshortcuts="C" aria-disabled="true">Cabbage <kbd aria-hidden="true">C</kbd></button>
+            <button type="button" data-command="a" aria-keyshortcuts="A" aria-disabled="true">Go alone <kbd aria-hidden="true">A</kbd></button>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" data-command="r" aria-keyshortcuts="R" aria-disabled="true"><span id="restart-label">Restart</span> <kbd aria-hidden="true">R</kbd></button>
+          <button type="button" data-command="q" aria-keyshortcuts="Q" aria-disabled="true">Quit <kbd aria-hidden="true">Q</kbd></button>
+        </div>
+      </section>
+    </div>
+
+    <details class="machine">
+      <summary>Inside the machine</summary>
+      <p>Malbolge rewrites a word after each executed instruction, except when it halts. C points to the next instruction, D points to data, and A holds a working value.</p>
+      <div class="machine-actions">
+        <button id="arm-step" type="button" aria-pressed="false" aria-disabled="true">Step through next crossing</button>
+      </div>
+      <div class="machine-actions" id="step-controls" hidden>
+        <button id="step" type="button">Step one instruction</button>
+        <button id="finish-step" type="button">Finish crossing</button>
+      </div>
+      <dl class="registers">
+        <div><dt>Accumulator A</dt><dd id="register-a">—</dd></div>
+        <div><dt>Code pointer C</dt><dd id="register-c">—</dd></div>
+        <div><dt>Data pointer D</dt><dd id="register-d">—</dd></div>
+        <div><dt>Instructions run</dt><dd id="register-steps">—</dd></div>
+      </dl>
+      <h2>Memory around C</h2>
+      <ol class="memory" id="memory"></ol>
+      <p id="encryption"></p>
+      <h2>Raw program output</h2>
+      <p>The program emits one byte for each board state or message.</p>
+      <pre class="transcript" id="transcript" tabindex="0" aria-label="Recent Malbolge program output"></pre>
+      <div class="machine-actions">
+        <a href="https://github.com/eprnn/yes-astra-can-malbolge/blob/main/docs/ferry.mal">View source on GitHub</a>
+        <a href="./ferry.mal" download>Download source</a>
+        <button id="replay" type="button" aria-disabled="true">Watch solution</button>
+      </div>
+    </details>
+  </main>
+</body>
+</html>

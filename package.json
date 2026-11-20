@@ -1,0 +1,10 @@
+{
+  "name": "yes-astra-can-malbolge",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node play.mjs",
+    "test": "node tests/check.mjs"
+  }
+}
